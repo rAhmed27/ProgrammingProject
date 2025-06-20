@@ -1,10 +1,9 @@
-import pygame
-import sys
+import pygame, sys
 
 # Initialize Pygame
 pygame.init()
 
-# Set window size
+# Window set-up
 screen = pygame.display.set_mode((800, 600))
 pygame.display.set_caption("Horror Game - Main Menu")
 
@@ -15,7 +14,7 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    screen.fill((0, 0, 0))  # Fill with black
+    screen.fill((0, 0, 0))  
     pygame.display.flip()
 
 pygame.quit()
