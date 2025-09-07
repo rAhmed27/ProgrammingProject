@@ -1,5 +1,6 @@
 import pygame 
 import sys
+from map import *
 
 res = width, height = 1600, 900
 fps = 60
@@ -9,16 +10,18 @@ class Game:
         pygame.init()
         self.screen = pygame.display.set_mode(res)
         self.clock = pygame.time.Clock()
+        self.newGame()
     def update(self):
         pygame.display.flip()
         self.clock.tick(fps)
         pygame.display.set_caption(f'{self.clock.get_fps():.1f}')
     
     def newGame(self):
-        pass
+        self.map = Map(self)
 
     def draw(self):
         self.screen.fill('black')
+        self.map.draw()
 
     def checkEvents(self):
         for event in pygame.event.get():
@@ -35,4 +38,3 @@ class Game:
 if __name__ == '__main__':
     game = Game()
     game.run()
-
