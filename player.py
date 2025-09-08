@@ -39,14 +39,22 @@ class Player:
             dy = dy - speedSin
         if keys[pygame.K_d]:
             dx = dx - speedSin
-            dy = dy + speedCos
-        self.X = self.X + dx      
-        self.Y = self.Y + dy      
+            dy = dy + speedCos 
+        self.checkWallCollision(dx,dy)
         if keys[pygame.K_LEFT]:
             self.angle = self.angle - playerROTspeed * self.game.deltaTime
         if keys[pygame.K_RIGHT]:
             self.angle = self.angle + playerROTspeed * self.game.deltaTime 
         self.angle = self.angle % math.tau
+
+    def checkWall(self, x, y):
+        return (x, y) not in self.game.map.worldMap
+    def checkWallCollision(self, dx, dy):
+        if self.checkWall(int(self.X + dx), int(self.Y)):
+            self.X = self.X + dx
+        if self.checkWall(int(self.X), int(self.Y + dy)):
+            self.Y = self.Y + dy   
+
     def draw(self):
         pygame.draw.line(self.game.screen, 'blue', (self.X * 100, self.Y * 100), (self.X * 100 + width * math.cos(self.angle), self.Y * 100 + width * math.sin(self.angle)), 2) 
         pygame.draw.circle(self.game.screen, 'red', (self.X * 100, self.Y * 100), 15)
