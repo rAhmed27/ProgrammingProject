@@ -1,6 +1,7 @@
 import pygame 
 import sys
 from map import *
+from player import *
 
 res = width, height = 1600, 900
 fps = 60
@@ -10,18 +11,22 @@ class Game:
         pygame.init()
         self.screen = pygame.display.set_mode(res)
         self.clock = pygame.time.Clock()
+        self.deltaTime = 1
         self.newGame()
     def update(self):
+        self.player.update()
         pygame.display.flip()
-        self.clock.tick(fps)
+        self.deltaTime = self.clock.tick(fps)
         pygame.display.set_caption(f'{self.clock.get_fps():.1f}')
     
     def newGame(self):
         self.map = Map(self)
+        self.player = Player(self)
 
     def draw(self):
         self.screen.fill('black')
         self.map.draw()
+        self.player.draw()
 
     def checkEvents(self):
         for event in pygame.event.get():
