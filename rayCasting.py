@@ -1,23 +1,63 @@
 import pygame
 import math
-
-res = width, height = 1600, 900
-fps = 60
-playerPOS = 1.5, 5
-playerAngle = 0
-playerSpeed = 0.004
-playerROTspeed = 0.002
+from settings import *
 
 class RayCasting:
     def __init__(self, game):
         self.game = game
     
     def rayCast(self):
-        rayAngle = self.game.player.angle - (0.5 * playerPOV) + 0.0001
-        playerX, playerY =
-        mapX, mapY =
-    
+        playerX, playerY = self.game.player.pos
+        mapX, mapY = self.game.player.mapPos
+        rayAngle = self.game.player.angle - (halfFOV + 0.0001)
+        for ray in range(numRays):
+            sinRC = math.sin(rayAngle)
+            cosRC = math.cos(rayAngle)
+            rayAngle = rayAngle + deltaAngle
+
+            if sinRC > 0:
+                horY, dy = mapY + 1, 1
+            else:
+                horY, dy = mapY - 0.000001, -1
+            horDepth = (horY - playerY) / sinRC
+            horX = cosRC * horDepth + playerX
+            deltaDepth = dy / sinRC
+            dx = deltaDepth * cosRC
+
+            for i in range(maxDepth):
+                horTile = int(horX), int(horY)
+                if horTile in self.game.map.worldMap:
+                    break
+                horX = horX + dx
+                horY = horY + dy
+                horDepth = horDepth + deltaDepth
+
+            if cosRC > 0:
+                vertX, dx = mapX + 1, 1
+            else:
+                vertX, dx = mapX - 0.000001, -1
+            vertDepth = (vertX - playerX)/cosRC
+            vertY = sinRC * vertDepth + playerY
+            deltaDepth = dx /cosRC
+            dy = deltaDepth * sinRC
+
+            for i in range(maxDepth):
+                vertTile = int(vertX), int(vertY)
+                if vertTile in self.game.map.worldMap:
+                    break
+                vertX = vertX + dx
+                vertY = vertY + dy
+                vertDepth = vertDepth + deltaDepth
+
+            if vertDepth < horDepth:
+                depth = vertDepth
+            else:
+                depth = horDepth
+
+            pygame.draw.line(self.game.screen, 'green', (100 * playerX, 100 * playerY), (100 * playerX + 100 * cosRC * depth, 100 * playerY + 100 * sinRC * depth), 2)
+            rayAngle = rayAngle + deltaAngle
     def update(self):
         self.rayCast()
+
 
     

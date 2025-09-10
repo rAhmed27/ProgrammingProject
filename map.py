@@ -1,8 +1,6 @@
 import pygame
 import sys
-
-res = width, height = 1600, 900
-fps = 60
+from settings import *
 
 boundaryLine = 16 * [1]
 innerLine = [1] + 14 * [False] + [1]

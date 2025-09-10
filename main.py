@@ -1,10 +1,8 @@
 import pygame 
 import sys
+from settings import *
 from map import *
 from player import *
-
-res = width, height = 1600, 900
-fps = 60
 
 class Game:
     def __init__(self):
