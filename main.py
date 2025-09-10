@@ -24,7 +24,7 @@ class Game:
         self.raycasting = RayCasting(self)
     def draw(self):
         self.screen.fill('black')
-        self.map.draw()
+        # self.map.draw()
         self.player.draw()
 
     def checkEvents(self):

@@ -50,8 +50,9 @@ class Player:
             self.Y = self.Y + dy   
 
     def draw(self):
-        pygame.draw.line(self.game.screen, 'blue', (self.X * 100, self.Y * 100), (self.X * 100 + width * math.cos(self.angle), self.Y * 100 + width * math.sin(self.angle)), 2) 
-        pygame.draw.circle(self.game.screen, 'red', (self.X * 100, self.Y * 100), 15)
+        pass
+        # pygame.draw.line(self.game.screen, 'blue', (self.X * 100, self.Y * 100), (self.X * 100 + width * math.cos(self.angle), self.Y * 100 + width * math.sin(self.angle)), 2) 
+        # pygame.draw.circle(self.game.screen, 'red', (self.X * 100, self.Y * 100), 15)
 
 
     def update(self):
