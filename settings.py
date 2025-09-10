@@ -1,3 +1,4 @@
+import math
 res = width, height = 1600, 900
 fps = 60
 playerPOS = 1.5, 5
