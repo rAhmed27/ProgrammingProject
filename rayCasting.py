@@ -10,7 +10,7 @@ class RayCasting:
         playerX, playerY = self.game.player.pos()
         mapX, mapY = self.game.player.mapPos()
         rayAngle = self.game.player.angle - (halfFOV + 0.0001)
-        for ray in range(numRays):
+        for ray in range(int(numRays)):
             sinRC = math.sin(rayAngle)
             cosRC = math.cos(rayAngle)
             rayAngle = rayAngle + deltaAngle
@@ -53,7 +53,7 @@ class RayCasting:
                 depth = vertDepth
             else:
                 depth = horDepth
-            
+        
             depth *= math.cos(self.game.player.angle - rayAngle)
             depth = max(depth, 0.0001)
             projHeight = screenDist / depth
