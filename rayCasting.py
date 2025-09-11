@@ -54,8 +54,9 @@ class RayCasting:
             else:
                 depth = horDepth
             
-            # depth *= math.cos(self.game.player.angle - rayAngle)
-            projHeight = screenDist / (depth + 0.0001)
+            depth *= math.cos(self.game.player.angle - rayAngle)
+            depth = max(depth, 0.0001)
+            projHeight = screenDist / depth
             colour = [255 / (1 + depth ** 5 * 0.00002)] * 3
             pygame.draw.rect(self.game.screen, colour, (ray * scale, halfHeight - projHeight // 2, scale, projHeight))
 
