@@ -5,12 +5,16 @@ from settings import *
 class RayCasting:
     def __init__(self, game):
         self.game = game
+        self.rayCastResult = []
+        self.objectsRender = []
+        self.textures = self.game.renderObject. wallTextures
     
     def rayCast(self):
         playerX, playerY = self.game.player.pos()
         mapX, mapY = self.game.player.mapPos()
+        vertTexture, horTexture = 1, 1
         rayAngle = self.game.player.angle - (halfFOV + 0.0001)
-        for ray in range(numRays):
+        for ray in range(int(numRays)):
             sinRC = math.sin(rayAngle)
             cosRC = math.cos(rayAngle)
             rayAngle = rayAngle + deltaAngle
@@ -27,6 +31,7 @@ class RayCasting:
             for i in range(maxDepth):
                 horTile = int(horX), int(horY)
                 if horTile in self.game.map.worldMap:
+                    horTexture = self.game.map.worldMap[horTile]
                     break
                 horX = horX + dx
                 horY = horY + dy
@@ -44,6 +49,7 @@ class RayCasting:
             for i in range(maxDepth):
                 vertTile = int(vertX), int(vertY)
                 if vertTile in self.game.map.worldMap:
+                    vertTexture = self.game.map.worldMap[vertTile]
                     break
                 vertX = vertX + dx
                 vertY = vertY + dy
@@ -53,12 +59,13 @@ class RayCasting:
                 depth = vertDepth
             else:
                 depth = horDepth
-            
-            # correctedDepth = depth * math.cos(self.game.player.angle - rayAngle)
+        
+            depth *= math.cos(self.game.player.angle - rayAngle)
             depth = max(depth, 0.0001)
             projHeight = screenDist / depth
             colour = [255 / (1 + depth ** 5 * 0.00002)] * 3
             pygame.draw.rect(self.game.screen, colour, (ray * scale, halfHeight - projHeight // 2, scale, projHeight))
+
             # pygame.draw.line(self.game.screen, 'green', (100 * playerX, 100 * playerY), (100 * playerX + 100 * cosRC * depth, 100 * playerY + 100 * sinRC * depth), 2)
             rayAngle = rayAngle + deltaAngle
     def update(self):
