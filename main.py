@@ -4,7 +4,7 @@ from settings import *
 from map import *
 from player import *
 from rayCasting import *
-# from renderObject import *
+from renderObject import *
 
 class Game:
     def __init__(self):
@@ -22,7 +22,7 @@ class Game:
     def newGame(self):
         self.map = Map(self)
         self.player = Player(self)
-        # self.renderObject = renderObject(self)
+        self.renderObject = renderObject(self)
         self.raycasting = RayCasting(self)
     def draw(self):
         self.screen.fill('black')

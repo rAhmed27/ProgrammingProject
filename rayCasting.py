@@ -7,9 +7,19 @@ class RayCasting:
         self.game = game
         self.rayCastResult = []
         self.objectsRender = []
-        self.textures = self.game.renderObject. wallTextures
+        self.textures = self.game.renderObject.wallTextures
+    
+    def getObjectRender(self):
+        self.objectsRender = []
+        for ray, values in enumerate(self.rayCastResult):
+            values = depth, projHeight, texture, offset 
+            wallColumn = self.textures[texture].subsurface(offset * (textureSize - scale), 0, scale, textureSize)
+            wallColumn = pygame.transform.scale(wallColumn, (scale, projHeight))
+            wallPos = (ray * scale, halfHeight - (projHeight // 2))
+            self.objectsRender.append(depth, wallColumn, wallPos)
     
     def rayCast(self):
+        self.rayCastResult = []
         playerX, playerY = self.game.player.pos()
         mapX, mapY = self.game.player.mapPos()
         vertTexture, horTexture = 1, 1
@@ -56,17 +66,28 @@ class RayCasting:
                 vertDepth = vertDepth + deltaDepth
 
             if vertDepth < horDepth:
-                depth = vertDepth
+                depth, texture = vertDepth, vertTexture
+                vertY %= 1
+                if cosRC > 0:
+                    offset = vertY
+                else:
+                    offset = 1 - vertY
             else:
-                depth = horDepth
+                depth, texture = horDepth, horTexture
+                vertX %= 1
+                if sinRC > 0:
+                    offset = 1 - vertX
+                else:
+                    offset = vertX
         
             depth *= math.cos(self.game.player.angle - rayAngle)
             depth = max(depth, 0.0001)
             projHeight = screenDist / depth
-            colour = [255 / (1 + depth ** 5 * 0.00002)] * 3
-            pygame.draw.rect(self.game.screen, colour, (ray * scale, halfHeight - projHeight // 2, scale, projHeight))
-
+            self.rayCastResult.append((depth, projHeight, texture, offset))
+            # colour = [255 / (1 + depth ** 5 * 0.00002)] * 3
+            # pygame.draw.rect(self.game.screen, colour, (ray * scale, halfHeight - projHeight // 2, scale, projHeight))
             # pygame.draw.line(self.game.screen, 'green', (100 * playerX, 100 * playerY), (100 * playerX + 100 * cosRC * depth, 100 * playerY + 100 * sinRC * depth), 2)
             rayAngle = rayAngle + deltaAngle
     def update(self):
         self.rayCast()
+        self.objectsRender()
