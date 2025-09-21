@@ -15,7 +15,7 @@ class Game:
         self.newGame()
     def update(self):
         self.player.update()
-        self.raycasting.update()
+        self.rayCasting.update()
         pygame.display.flip()
         self.deltaTime = self.clock.tick(fps)
         pygame.display.set_caption(f'{self.clock.get_fps():.1f}')
@@ -23,9 +23,11 @@ class Game:
         self.map = Map(self)
         self.player = Player(self)
         self.renderObject = renderObject(self)
-        self.raycasting = RayCasting(self)
+        self.rayCasting = RayCasting(self)
+
     def draw(self):
         self.screen.fill('black')
+        self.renderObject.draw()
         # self.map.draw()
         # self.player.draw()
 

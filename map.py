@@ -2,10 +2,10 @@ import pygame
 import sys
 from settings import *
 
-boundaryLine = 16 * [1]
-innerlineW1 = [1] + 4 * [False] + 2 * [1] + 8 * [False] + [1]
-innerlineW2 = [1] + 2 * [1] + 4 * [False]+ 8 * [False] + [1]
-innerLineE = [1] + 14 * [False] + [1]
+boundaryLine = 20 * [1]
+innerlineW1 = [1] + 8 * [False] + 3 * [1] + 7 * [False] + [1]
+innerlineW2 = [1] + 5 * [1] + 5 * [False]+ 8 * [False] + [1]
+innerLineE = [1] + 18 * [False] + [1]
 
 miniMap = [boundaryLine, innerlineW1, innerLineE, innerlineW2, innerlineW1, innerLineE, innerlineW2, innerLineE, boundaryLine]
 
