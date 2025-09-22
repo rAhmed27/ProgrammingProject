@@ -9,6 +9,7 @@ from renderObject import *
 class Game:
     def __init__(self):
         pygame.init()
+        pygame.mouse.set_visible(False)
         self.screen = pygame.display.set_mode(res)
         self.clock = pygame.time.Clock()
         self.deltaTime = 1
@@ -26,7 +27,7 @@ class Game:
         self.rayCasting = RayCasting(self)
 
     def draw(self):
-        self.screen.fill('black')
+        # self.screen.fill('black')
         self.renderObject.draw()
         # self.map.draw()
         # self.player.draw()

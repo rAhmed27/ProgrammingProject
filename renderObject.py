@@ -6,9 +6,20 @@ class renderObject:
         self.game = game
         self.screen = game.screen
         self.wallTextures = self.loadWallTexture()
+        self.skyImage = self.getTexture('Textures/gloomy_up.png', (width, halfHeight))
+        self.skyOffset = 0
     
     def draw(self):
+        self.drawBackdrop()
         self.renderGameObjects()
+    
+    def drawBackdrop(self):
+        self.skyOffset = (self.skyOffset + 4.5 * self.game.player.rel) % width
+        self.screen.blit(self.skyImage, (-self.skyOffset, 0))
+        self.screen.blit(self.skyImage, (-self.skyOffset + width, 0))
+        pygame.draw.rect(self.screen, floorColour, (0, halfHeight, width, height))
+
+
 
     def renderGameObjects(self):
         listObjects = self.game.rayCasting.getObjectRender()
