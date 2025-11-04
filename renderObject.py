@@ -22,7 +22,7 @@ class renderObject:
 
 
     def renderGameObjects(self):
-        listObjects = self.game.rayCasting.getObjectRender()
+        listObjects = self.game.rayCasting.objectsRender
         for depth, image, pos in listObjects:
             self.screen.blit(image, pos)
     

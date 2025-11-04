@@ -87,7 +87,7 @@ class RayCasting:
                 else:
                     offset = vertX
         
-            depth *= math.cos(self.game.player.angle - rayAngle)
+            # depth *= math.cos(self.game.player.angle - rayAngle)
             depth = max(depth, 0.0001)
             projHeight = screenDist / depth
             self.rayCastResult.append((depth, projHeight, texture, offset))
