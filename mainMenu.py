@@ -1,5 +1,6 @@
 import pygame
 import sys
+from main import *
 
 # Initialize Pygame
 pygame.init()
@@ -68,7 +69,9 @@ while running:
                         running = False
                     elif button.text == "Start Game":
                         print("Start Game clicked!")
-                        # TODO: Add game start logic
+                        if __name__ == '__main__':
+                            game = Game()
+                            game.run()
                     elif button.text == "Settings":
                         print("Options clicked!")
                         # TODO: Add options menu

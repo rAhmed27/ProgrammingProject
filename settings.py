@@ -1,5 +1,5 @@
 import math
-res = width, height = 1600, 900
+res = width, height = 1200, 675
 halfWidth = width / 2
 halfHeight = height / 2
 fps = 60
@@ -13,7 +13,7 @@ mouseMaxRel = 40
 mouseLeftBorder = 100
 mouseRightBorder = width - mouseLeftBorder
 floorColour = (30, 30, 30)
-fullFOV = math.pi / 5
+fullFOV = math.pi / 3
 halfFOV = fullFOV / 2
 numRays = int(width // 2)
 halfNumRays = numRays / 2

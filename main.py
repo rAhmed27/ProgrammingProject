@@ -6,6 +6,8 @@ from player import *
 from rayCasting import *
 from renderObject import *
 from spriteObjects import *
+from objectProcessor import *
+from weapon import *
 
 class Game:
     def __init__(self):
@@ -22,12 +24,19 @@ class Game:
         pygame.display.flip()
         self.deltaTime = self.clock.tick(fps)
         pygame.display.set_caption(f'{self.clock.get_fps():.1f}')
+        self.testSprite.update()
+        self.animSpriteTest.update()
+        # self.objectProcessor.update()
+        self.weapon.update()
     def newGame(self):
         self.map = Map(self)
         self.player = Player(self)
         self.renderObject = renderObject(self)
         self.rayCasting = RayCasting(self)
         self.testSprite = Sprite(self)
+        self.animSpriteTest = AnimatedSprites(self)
+        # self.objectProcessor = ObjectProcessor(self)
+        self.weapon = Weapon(self)
     def draw(self):
         # self.screen.fill('black')
         self.renderObject.draw()
